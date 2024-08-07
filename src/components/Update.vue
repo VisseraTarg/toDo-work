@@ -1,9 +1,9 @@
 <script setup="">
-import Close1 from '/src/assets/icons/close.svg'
+import Edit1 from '/src/assets/icons/edit.svg'
 </script>
 
 <template>
-  <img :src="Close1" alt="" />
+  <img :src="Edit1" alt="" />
 </template>
 
 <style scoped>

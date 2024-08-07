@@ -8,6 +8,7 @@ const addTodo = () => {
   if (input_content.value.trim() === '') {
     return
   }
+
   emit('add', {
     content: input_content.value,
     done: false,

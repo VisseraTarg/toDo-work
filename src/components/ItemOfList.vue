@@ -1,6 +1,8 @@
 <script setup="">
 import Close from "@/components/Close.vue";
 import Update from "@/components/Update.vue";
+import editForm from "@/components/editForm.vue";
+import {ref} from "vue";
 
 const props = defineProps({
   item: Object,
@@ -13,10 +15,13 @@ const remove = () => {
   console.log('removed', props.item)
   emit('remove', props.item)
 }
+const isActiveEditForm = ref(false)
 const update = () => {
   console.log('updated', props.item)
+  isActiveEditForm.value = false
   emit('update', props.item)
 }
+
 </script>
 
 <template>
@@ -27,6 +32,7 @@ const update = () => {
     </label>
     <Close @click="remove"/>
     <Update @click="update"/>
+    <editForm v-if="isActiveEditForm" @edit="update"/>
   </div>
 </template>
 

@@ -10,7 +10,6 @@ const name = ref('')
 const isActiveForm = ref(false)
 
 const addTodo = (todo) => {
-
   isActiveForm.value = false
   todos.value.push(todo)
 }
