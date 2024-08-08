@@ -25,8 +25,9 @@ const isActiveEditForm = ref(false)
 const update = () => {
   isActiveEditForm.value = false
   console.log('updated', props.item)
-
   emit('update', props.item)
+
+
 
 }
 
