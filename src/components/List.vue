@@ -9,6 +9,7 @@ const emit = defineEmits(['remove'])
 const updateList = (item) => {
 
 }
+
 </script>
 
 <template>

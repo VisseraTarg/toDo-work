@@ -2,7 +2,7 @@
 import {ref, onMounted, watch} from "vue"
 import List from "@/components/List.vue";
 import Form from "@/components/Form.vue";
-import editForm from "@/components/editForm.vue";
+
 
 const todos = ref([])
 const name = ref('')
@@ -18,6 +18,11 @@ const removeTodo = (todo) => {
   todos.value = todos.value.filter(t => t !== todo)
 }
 
+const updateTodo = (todo) => {
+  console.log(todo)
+
+}
+
 watch(todos, newVal => {
   localStorage.setItem('todos', JSON.stringify(newVal))
 }, {deep: true})
@@ -31,9 +36,7 @@ onMounted(() => {
   todos.value = JSON.parse(localStorage.getItem('todos')) || []
 })
 
-const updateTodo = (todo) => {
 
-}
 </script>
 
 
@@ -44,6 +47,7 @@ const updateTodo = (todo) => {
       <div class="todo-btn" @click="isActiveForm =! isActiveForm">Добавить</div>
       <Form v-if="isActiveForm" @add="addTodo"/>
       <List :list="todos" @remove="removeTodo" @update="updateTodo"/>
+
     </section>
   </main>
 </template>

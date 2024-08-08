@@ -1,8 +1,10 @@
 <script setup="">
 import Close from "@/components/Close.vue";
 import Update from "@/components/Update.vue";
+import {computed, ref} from "vue";
 import editForm from "@/components/editForm.vue";
-import {ref} from "vue";
+
+
 
 const props = defineProps({
   item: Object,
@@ -11,16 +13,24 @@ const props = defineProps({
 
 const emit = defineEmits(['remove', 'update'])
 
+const edited_value = computed(()=> props.item.content)
+
 const remove = () => {
   console.log('removed', props.item)
   emit('remove', props.item)
 }
+
 const isActiveEditForm = ref(false)
+
 const update = () => {
-  console.log('updated', props.item)
   isActiveEditForm.value = false
+  console.log('updated', props.item)
+
   emit('update', props.item)
+
 }
+
+
 
 </script>
 
@@ -30,9 +40,12 @@ const update = () => {
       <input type="checkbox"/>
       {{ index + 1 }}. {{ item.content }}
     </label>
+
+    <Update @click="isActiveEditForm =! isActiveEditForm"/>
+    <editForm v-if="isActiveEditForm" @update="update" v-model="edited_value"/>
     <Close @click="remove"/>
-    <Update @click="update"/>
-    <editForm v-if="isActiveEditForm" @edit="update"/>
+
+
   </div>
 </template>
 

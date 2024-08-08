@@ -1,21 +1,8 @@
 <script setup="">
+import Form from "@/components/Form.vue";
 
-import {ref} from "vue";
+ const edited = defineModel()
 
-const emit = defineEmits(['edit'])
-const input_content = ref('')
-const updateTodo = () => {
-  if (input_content.value.trim() === '') {
-    return
-  }
-
-  emit('edit', {
-    content: input_content.value,
-    done: false,
-    createdAt: new Date().getTime(),
-  })
-  input_content.value = ''
-}
 </script>
 
 <template>
@@ -24,11 +11,13 @@ const updateTodo = () => {
       <div>Ну довай исправим</div>
       <input
           type="text"
-          placeholder="Напиши как надо было"
-          v-model="input_content"/>
-      <input type="submit" class="todo-btn" value="Сохранить"/>
+          v-model="edited"
+      />
+      <input type="submit" class="todo-btn" value="Исправить"/>
     </form>
   </div>
+
+
 </template>
 
 <style scoped>
@@ -57,4 +46,5 @@ input[type="text"] {
   color: #111;
   border-radius: 8px;
 }
+
 </style>

@@ -16,6 +16,12 @@ const addTodo = () => {
   })
   input_content.value = ''
 }
+
+const fillFields = {
+    placeholderText: "Напиши сюда любое дело",
+  }
+
+
 </script>
 
 <template>
@@ -24,7 +30,7 @@ const addTodo = () => {
       <div>Ну довай добавим</div>
       <input
           type="text"
-          placeholder="Напиши сюда любое дело"
+          v-bind:placeholder="fillFields.placeholderText"
           v-model="input_content"/>
       <input type="submit" class="todo-btn" value="Добвить"/>
     </form>
