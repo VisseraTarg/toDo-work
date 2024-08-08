@@ -7,6 +7,7 @@ import Form from "@/components/Form.vue";
 const todos = ref([])
 const name = ref('')
 
+/* some comment */
 const isActiveForm = ref(false)
 
 const addTodo = (todo) => {
