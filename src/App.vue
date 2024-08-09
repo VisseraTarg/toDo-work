@@ -19,8 +19,8 @@ const removeTodo = (todo) => {
 }
 
 const updateTodo = (todo) => {
-  console.log(todo, todos.value)
-  console.log(todo.createdAt, todos.value)
+  //console.log(todo, todos.value)
+  //console.log(todo.createdAt, todos.value)
 
 }
 

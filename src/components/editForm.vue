@@ -10,6 +10,9 @@ const emit = defineEmits(['updateEditedModel'])
 
 const updateTodo= () => {
    emit('updateEditedModel', edited.value)
+  console.log()//
+
+
 }
 
 const edited = ref(props.edited_value || '')
