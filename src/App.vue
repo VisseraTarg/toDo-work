@@ -19,7 +19,8 @@ const removeTodo = (todo) => {
 }
 
 const updateTodo = (todo) => {
-  //console.log(todo)
+  console.log(todo, todos.value)
+  console.log(todo.createdAt, todos.value)
 
 }
 
@@ -30,6 +31,7 @@ watch(todos, newVal => {
 onMounted(() => {
   todos.value = JSON.parse(localStorage.getItem('todos')) || []
 })
+
 
 
 </script>

@@ -2,7 +2,18 @@
 import Form from "@/components/Form.vue";
 import {ref} from "vue";
 
- const edited = defineModel()
+
+const props = defineProps({
+  edited_value: String
+})
+const emit = defineEmits(['updateEditedModel'])
+
+const updateTodo= () => {
+   emit('updateEditedModel', edited.value)
+}
+
+const edited = ref(props.edited_value || '')
+
 
 
 

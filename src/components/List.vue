@@ -5,9 +5,9 @@ defineProps({
   list: Array
 })
 
-const emit = defineEmits(['remove'])
+const emit = defineEmits(['remove', 'update'])
 const updateList = (item) => {
-
+    emit('update', item)
 }
 
 </script>

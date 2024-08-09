@@ -22,16 +22,19 @@ const remove = () => {
 
 const isActiveEditForm = ref(false)
 
-const update = () => {
+const update = (edited) => {
   isActiveEditForm.value = false
-  console.log('updated', props.item)
-  emit('update', props.item)
-
-
-
+  emit('update', {
+    done: props.item.done,
+    content: edited,
+    createdAt: props.item.createdAt,
+  })
 }
 
-
+const closeModal = (edited) => {
+  isActiveEditForm.value = false
+  console.log(edited)
+}
 
 </script>
 
@@ -43,8 +46,13 @@ const update = () => {
     </label>
 
     <Update @click="isActiveEditForm =! isActiveEditForm"/>
-    <editForm v-if="isActiveEditForm" @update="update" v-model="edited_value"/>
+    <editForm
+        v-if="isActiveEditForm"
+        @updateEditedModel="update"
+        @close="closeModal"
+        :edited_value="edited_value"/>
     <Close @click="remove"/>
+
 
 
   </div>
