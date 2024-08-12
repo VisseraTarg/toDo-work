@@ -19,6 +19,10 @@ const removeTodo = (todo) => {
 }
 
 const updateTodo = (todo) => {
+  todos.value = todos.value.map(item => {
+  if (item.createdAt === todo.createdAt) return todo
+    return item
+  })
   //console.log(todo, todos.value)
   //console.log(todo.createdAt, todos.value)
 

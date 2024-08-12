@@ -9,10 +9,7 @@ const props = defineProps({
 const emit = defineEmits(['updateEditedModel'])
 
 const updateTodo= () => {
-   emit('updateEditedModel', edited.value)
-  console.log()//
-
-
+  emit('updateEditedModel', edited.value)
 }
 
 const edited = ref(props.edited_value || '')
