@@ -3,6 +3,8 @@ import {ref, onMounted, watch} from "vue"
 import List from "@/components/List.vue";
 import Form from "@/components/Form.vue";
 
+import ForRegExp from "@/components/ForRegExp.vue";
+
 
 const todos = ref([])
 
@@ -23,9 +25,10 @@ const updateTodo = (todo) => {
   if (item.createdAt === todo.createdAt) return todo
     return item
   })
-  //console.log(todo, todos.value)
-  //console.log(todo.createdAt, todos.value)
+}
 
+const closeForm = () => {
+  isActiveForm.value = false
 }
 
 watch(todos, newVal => {
@@ -46,8 +49,12 @@ onMounted(() => {
     <section class="create-todo">
       <h1>Лист задач</h1>
       <div class="todo-btn" @click="isActiveForm =! isActiveForm">Добавить</div>
-      <Form v-if="isActiveForm" @add="addTodo"/>
+      <Form v-if="isActiveForm" @add="addTodo" @close="closeForm"/>
       <List :list="todos" @remove="removeTodo" @update="updateTodo"/>
+      <br>
+      <br>
+      <ForRegExp/>
+
 
     </section>
   </main>
@@ -57,16 +64,17 @@ onMounted(() => {
 <style>
 *, *:before, *:after {
   box-sizing: border-box;
+  font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
 }
 </style>
 <style scoped>
-
-h3 {
-  display: block;
-  border-bottom: 1px solid grey;
-  width: 100%;
+main {
+  display: flex;
+  flex-direction: column;
   align-items: center;
 }
+
+
 
 h1 {
   text-align: center;
@@ -84,6 +92,10 @@ h1 {
   cursor: pointer;
 
   transition: 0.3s;
+
+  margin: 0 auto;
+
+
 }
 
 .todo-btn:hover {

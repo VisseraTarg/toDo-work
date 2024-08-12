@@ -35,4 +35,10 @@ const updateList = (item) => {
   justify-content: center;
   width: 100%;
 }
+h3 {
+  display: block;
+  border-bottom: 1px solid grey;
+  width: 100%;
+  text-align: center;
+}
 </style>

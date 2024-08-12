@@ -1,16 +1,22 @@
-<script setup="">
-import Close1 from '/src/assets/icons/close.svg'
+<script setup>
+import IconClose from '@/assets/icons/close1.svg'
 </script>
 
 <template>
-  <img :src="Close1" alt="" />
+  <img :src="IconClose" alt=""/>
 </template>
 
 <style scoped>
 img{
+
   display: block;
+  position: absolute;
+  right: 16px;
+  top: 16px;
   width: 16px;
   height: 16px;
   cursor: pointer;
+
 }
+
 </style>

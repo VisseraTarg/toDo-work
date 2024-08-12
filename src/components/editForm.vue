@@ -1,12 +1,14 @@
 <script setup="">
-import Form from "@/components/Form.vue";
+//import Form from "@/components/Form.vue"; ???
 import {ref} from "vue";
+
+import Close from "@/components/Close.vue";
 
 
 const props = defineProps({
   edited_value: String
 })
-const emit = defineEmits(['updateEditedModel'])
+const emit = defineEmits(['updateEditedModel','close'])
 
 const updateTodo= () => {
   emit('updateEditedModel', edited.value)
@@ -14,7 +16,9 @@ const updateTodo= () => {
 
 const edited = ref(props.edited_value || '')
 
-
+const close = () => {
+  emit ('close')
+}
 
 
 </script>
@@ -22,6 +26,7 @@ const edited = ref(props.edited_value || '')
 <template>
   <div class="form_wrapper">
     <form class="form" @submit.prevent="updateTodo">
+      <Close @click="close"/>
       <div>Ну довай исправим</div>
       <input
           type="text"
@@ -52,6 +57,7 @@ const edited = ref(props.edited_value || '')
   background-color: #fff;
   padding: 40px;
   border-radius: 16px;
+  position: relative;
 }
 input[type="text"] {
   padding: 8px 12px;

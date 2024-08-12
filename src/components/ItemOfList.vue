@@ -1,5 +1,5 @@
 <script setup="">
-import Close from "@/components/Close.vue";
+import Delete from "@/components/Delete.vue";
 import Update from "@/components/Update.vue";
 import {computed, ref} from "vue";
 import editForm from "@/components/editForm.vue";
@@ -33,7 +33,7 @@ const update = (edited) => {
 
 const closeModal = (edited) => {
   isActiveEditForm.value = false
-  console.log(edited)
+
 }
 
 </script>
@@ -51,7 +51,7 @@ const closeModal = (edited) => {
         @updateEditedModel="update"
         @close="closeModal"
         :edited_value="edited_value"/>
-    <Close @click="remove"/>
+    <Delete @click="remove"/>
 
 
 

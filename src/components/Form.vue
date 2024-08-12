@@ -1,8 +1,10 @@
 <script setup="">
-
 import {ref} from "vue";
 
-const emit = defineEmits(['add'])
+import Close from "@/components/Close.vue";
+
+const emit = defineEmits(['add','close']) //
+
 const input_content = ref('')
 const addTodo = () => {
   if (input_content.value.trim() === '') {
@@ -17,6 +19,10 @@ const addTodo = () => {
   input_content.value = ''
 }
 
+const close = () => {
+  emit ('close')
+}
+
 const fillFields = {
     placeholderText: "Напиши сюда любое дело",
   }
@@ -26,13 +32,16 @@ const fillFields = {
 
 <template>
   <div class="form_wrapper">
+
     <form class="form" @submit.prevent="addTodo">
+      <Close @click="close"/>
       <div>Ну довай добавим</div>
       <input
           type="text"
           v-bind:placeholder="fillFields.placeholderText"
           v-model="input_content"/>
       <input type="submit" class="todo-btn" value="Добвить"/>
+
     </form>
   </div>
 </template>
@@ -55,6 +64,7 @@ const fillFields = {
   background-color: #fff;
   padding: 40px;
   border-radius: 16px;
+  position: relative;
 }
 input[type="text"] {
   padding: 8px 12px;
