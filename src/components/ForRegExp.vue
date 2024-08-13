@@ -2,7 +2,7 @@
   //import {ref} from "vue";
 
   const arr = ["abcd","1234","Hello world!","Hello wrld!"]
-  const search = 'Hello'
+  const search = 'Hell'
   const regexp = new RegExp(search, "g")
 
   const doSearch = arr.filter(function(item){
@@ -17,7 +17,9 @@
 
 <template>
   <div>Дано: {{arr}}</div>
+  <br>
   <div>Найти: {{search}}</div>
+  <br>
   <div>Найдено: {{result}}</div>
 
 </template>

@@ -1,11 +1,12 @@
 <script setup="">
 
 import ItemOfList from "@/components/ItemOfList.vue";
-defineProps({
+
+const arr = defineProps({
   list: Array
 })
 
-const emit = defineEmits(['remove', 'update'])
+const emit = defineEmits(['remove', 'update', 'search'])
 const updateList = (item) => {
     emit('update', item)
 }
@@ -14,7 +15,8 @@ const updateList = (item) => {
 
 <template>
   <section class="todo-list">
-    <h3>Список задач</h3>
+
+
     <div class="list">
       <ItemOfList
           @remove="()=>{emit('remove', item)}"
@@ -35,10 +37,5 @@ const updateList = (item) => {
   justify-content: center;
   width: 100%;
 }
-h3 {
-  display: block;
-  border-bottom: 1px solid grey;
-  width: 100%;
-  text-align: center;
-}
+
 </style>
