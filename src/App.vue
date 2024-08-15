@@ -1,14 +1,9 @@
 <script setup xmlns="http://www.w3.org/1999/html">
-import {ref, onMounted, watch, computed} from "vue"
+import {computed, onMounted, ref, watch} from "vue"
 import List from "@/components/List.vue";
 import Form from "@/components/Form.vue";
 
-import ForRegExp from "@/components/ForRegExp.vue";
-import SearchTest from "@/components/SearchTest.vue";
-
-
 const todos = ref([])
-
 
 const isActiveForm = ref(false)
 
@@ -23,23 +18,16 @@ const removeTodo = (todo) => {
 
 const updateTodo = () => {
   todos.value = todos.value.map(item => {
-  if (item.createdAt === todo.createdAt) return todo
+    if (item.createdAt === todo.createdAt) return todo
     return item
   })
 }
 
-const searchInput = ref ('')
-
-//let result = ref()
-
-const searchTodo = computed ((todo)=>{
-  todos.value.filter(function (item) {
-    return item.content.match(new RegExp(searchInput.value, 'gmi'))
-  })
-
-})
-
-
+const searchInput = ref('')
+const searchTodo = computed((todo) =>
+    todos.value.filter((item) =>
+        item.content.match(new RegExp(searchInput.value, 'gmi'))
+    ))
 
 const closeForm = () => {
   isActiveForm.value = false
@@ -57,18 +45,16 @@ onMounted(() => {
 
 </script>
 
-
 <template>
   <main class="app">
     <section class="create-todo">
       <h1>Лист задач</h1>
       <div class="todo-btn" @click="isActiveForm =! isActiveForm">Добавить</div>
       <h3>Список задач</h3>
-      <pre>{{todos}}</pre>
       <input type="text" v-model="searchInput" placeholder="Начните вводить название для поиска">
-
       <Form v-if="isActiveForm" @add="addTodo" @close="closeForm"/>
-      <List :list="todos" @remove="removeTodo" @update="updateTodo" />
+
+      <List :list="searchTodo" @remove="removeTodo" @update="updateTodo"/>
 
       <!--<br>
       <br>
@@ -135,5 +121,6 @@ input[type="text"] {
   color: #111;
   border-radius: 8px;
   margin: 0 0 6px;
+  width: 100%;
 }
 </style>
