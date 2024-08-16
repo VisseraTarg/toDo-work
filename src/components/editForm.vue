@@ -7,10 +7,10 @@ import Close from "@/components/Close.vue";
 const props = defineProps({
   edited_value: String
 })
-const emit = defineEmits(['updateEditedModel','close'])
+const emit = defineEmits(['update', 'close'])
 
 const updateTodo= () => {
-  emit('updateEditedModel', edited.value)
+  emit('update', edited.value)
 }
 
 const edited = ref(props.edited_value || '')

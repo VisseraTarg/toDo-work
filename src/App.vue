@@ -3,10 +3,18 @@ import {computed, onMounted, ref, watch} from "vue"
 
 import Form from "@/components/Form.vue";
 import ItemOfList from "@/components/ItemOfList.vue";
+import editForm from "@/components/editForm.vue";
 
 const todos = ref([])
-
 const isActiveForm = ref(false)
+const searchInput = ref('')
+const isActiveEditForm = ref(false)
+const editedTodo = ref()
+
+const searchTodo = computed((todo) =>
+    todos.value.filter((item) =>
+        item.content.match(new RegExp(searchInput.value, 'gmi')) //done = false
+    ))
 
 const addTodo = (todo) => {
   isActiveForm.value = false
@@ -17,18 +25,27 @@ const removeTodo = (todo) => {
   todos.value = todos.value.filter(t => t !== todo)
 }
 
-const updateTodo = (todo) => {
+const updateEditedModel = (content) => {
   todos.value = todos.value.map(item => {
-    if (item.createdAt === todo.createdAt) return todo
+    if (item.createdAt === editedTodo.value.createdAt)
+      return {
+        content,
+        done: editedTodo.value.done,
+        createdAt: editedTodo.value.createdAt
+      }
     return item
   })
+  isActiveEditForm.value = false
 }
 
-const searchInput = ref('')
-const searchTodo = computed((todo) =>
-    todos.value.filter((item) =>
-        item.content.match(new RegExp(searchInput.value, 'gmi'))
-    ))
+const openEditTodoForm = (editValue) => {
+  isActiveEditForm.value = true
+  editedTodo.value = editValue
+}
+
+const closeModal = (edited) => {
+  isActiveEditForm.value = false
+}
 
 const closeForm = () => {
   isActiveForm.value = false
@@ -49,23 +66,30 @@ onMounted(() => {
     <section class="create-todo">
       <h1>Лист задач</h1>
       <div class="todo-btn" @click="isActiveForm =! isActiveForm">Добавить</div>
-      <h3>Список задач</h3>
       <input type="text" v-model="searchInput" placeholder="Начните вводить название для поиска">
-      <Form v-if="isActiveForm" @add="addTodo" @close="closeForm"/>
+      <h3>Список задач</h3>
+      <Form v-if="isActiveForm"
+            @add="addTodo"
+            @close="closeForm"/>
+      <editForm
+          v-if="isActiveEditForm"
+          @update="updateEditedModel"
+          @close="closeModal"
+          :edited_value="editedTodo.content"
+      />
       <section class="todo-list">
         <div class="list">
           <ItemOfList
               @remove="removeTodo"
-              @update="updateTodo"
+              @openEditForm="openEditTodoForm"
               v-for="(item, index) in searchTodo"
               :item="item" :index="index"
               :key="item.createdAt"
           />
         </div>
       </section>
-
-
-
+      <h3>Список выполненных задач</h3>
+      <pre>{{searchTodo}}</pre>
     </section>
   </main>
 </template>

@@ -1,39 +1,23 @@
 <script setup="">
 import Delete from "@/components/Delete.vue";
 import Update from "@/components/Update.vue";
-import {computed, ref} from "vue";
-import editForm from "@/components/editForm.vue";
-
 
 
 const props = defineProps({
   item: Object,
-  index: Number
+  index: Number,
+  isActiveEditForm: Boolean,
 })
 
-const emit = defineEmits(['remove', 'update'])
-
-const edited_value = computed(()=> props.item.content)
+const emit = defineEmits(['remove', 'openEditForm'])
 
 const remove = () => {
   console.log('removed', props.item)
   emit('remove', props.item)
 }
 
-const isActiveEditForm = ref(false)
-
-const update = (edited) => {
-  isActiveEditForm.value = false
-  emit('update', {
-    done: props.item.done,
-    content: edited,
-    createdAt: props.item.createdAt,
-  })
-}
-
-const closeModal = (edited) => {
-  isActiveEditForm.value = false
-
+const openEditForm = () => {
+  emit('openEditForm', props.item)
 }
 
 </script>
@@ -45,12 +29,8 @@ const closeModal = (edited) => {
       {{ index + 1 }}. {{ item.content }}
     </label>
 
-    <Update @click="isActiveEditForm =! isActiveEditForm"/>
-    <editForm
-        v-if="isActiveEditForm"
-        @updateEditedModel="update"
-        @close="closeModal"
-        :edited_value="edited_value"/>
+    <Update @click="openEditForm"/>
+
     <Delete @click="remove"/>
   </div>
 </template>
