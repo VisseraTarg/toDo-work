@@ -1,7 +1,8 @@
 <script setup xmlns="http://www.w3.org/1999/html">
 import {computed, onMounted, ref, watch} from "vue"
-import List from "@/components/List.vue";
+
 import Form from "@/components/Form.vue";
+import ItemOfList from "@/components/ItemOfList.vue";
 
 const todos = ref([])
 
@@ -16,7 +17,7 @@ const removeTodo = (todo) => {
   todos.value = todos.value.filter(t => t !== todo)
 }
 
-const updateTodo = () => {
+const updateTodo = (todo) => {
   todos.value = todos.value.map(item => {
     if (item.createdAt === todo.createdAt) return todo
     return item
@@ -41,8 +42,6 @@ onMounted(() => {
   todos.value = JSON.parse(localStorage.getItem('todos')) || []
 })
 
-
-
 </script>
 
 <template>
@@ -53,15 +52,18 @@ onMounted(() => {
       <h3>Список задач</h3>
       <input type="text" v-model="searchInput" placeholder="Начните вводить название для поиска">
       <Form v-if="isActiveForm" @add="addTodo" @close="closeForm"/>
+      <section class="todo-list">
+        <div class="list">
+          <ItemOfList
+              @remove="removeTodo"
+              @update="updateTodo"
+              v-for="(item, index) in searchTodo"
+              :item="item" :index="index"
+              :key="item.createdAt"
+          />
+        </div>
+      </section>
 
-      <List :list="searchTodo" @remove="removeTodo" @update="updateTodo"/>
-
-      <!--<br>
-      <br>
-      <ForRegExp/>
-      <br>
-      <br>
-      <SearchTest/>-->
 
 
     </section>
@@ -121,6 +123,13 @@ input[type="text"] {
   color: #111;
   border-radius: 8px;
   margin: 0 0 6px;
+  width: 100%;
+}
+
+.todo-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   width: 100%;
 }
 </style>

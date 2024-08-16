@@ -52,9 +52,6 @@ const closeModal = (edited) => {
         @close="closeModal"
         :edited_value="edited_value"/>
     <Delete @click="remove"/>
-
-
-
   </div>
 </template>
 
