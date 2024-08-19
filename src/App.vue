@@ -11,10 +11,22 @@ const searchInput = ref('')
 const isActiveEditForm = ref(false)
 const editedTodo = ref()
 
-const searchTodo = computed((todo) =>
+const searchedTodos = computed(() =>
     todos.value.filter((item) =>
-        item.content.match(new RegExp(searchInput.value, 'gmi')) //done = false
-    ))
+        item.content.match(new RegExp(searchInput.value, 'gmi'))
+    )
+)
+const notDoneTodos = computed(() =>
+    searchedTodos.value.filter(item =>
+        item.done == false
+    )
+)
+
+const justDoIt = computed(() =>
+    todos.value.filter((item) =>
+        item.done == true
+    )
+)
 
 const addTodo = (todo) => {
   isActiveForm.value = false
@@ -66,8 +78,10 @@ onMounted(() => {
     <section class="create-todo">
       <h1>Лист задач</h1>
       <div class="todo-btn" @click="isActiveForm =! isActiveForm">Добавить</div>
-      <input type="text" v-model="searchInput" placeholder="Начните вводить название для поиска">
+      <input type="text" v-model="searchInput" placeholder="Поиск задачи">
+
       <h3>Список задач</h3>
+
       <Form v-if="isActiveForm"
             @add="addTodo"
             @close="closeForm"/>
@@ -82,14 +96,25 @@ onMounted(() => {
           <ItemOfList
               @remove="removeTodo"
               @openEditForm="openEditTodoForm"
-              v-for="(item, index) in searchTodo"
+              v-for="(item, index) in notDoneTodos"
               :item="item" :index="index"
               :key="item.createdAt"
           />
         </div>
       </section>
       <h3>Список выполненных задач</h3>
-      <pre>{{searchTodo}}</pre>
+      <section class="todo-list done-list">
+        <div class="list">
+          <ItemOfList
+              @remove="removeTodo"
+              @openEditForm="openEditTodoForm"
+              v-for="(item, index) in justDoIt"
+              :item="item" :index="index"
+              :key="item.createdAt"
+          />
+        </div>
+      </section>
+
     </section>
   </main>
 </template>
@@ -146,7 +171,7 @@ input[type="text"] {
   font-size: 16px;
   color: #111;
   border-radius: 8px;
-  margin: 0 0 6px;
+  margin: 10px 0 0;
   width: 100%;
 }
 
@@ -155,5 +180,9 @@ input[type="text"] {
   flex-direction: column;
   justify-content: center;
   width: 100%;
+}
+
+.done-list {
+  text-decoration: line-through;
 }
 </style>

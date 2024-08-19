@@ -9,6 +9,10 @@ const props = defineProps({
   isActiveEditForm: Boolean,
 })
 
+function makeDone() {
+  props.item.done =! props.item.done
+}
+
 const emit = defineEmits(['remove', 'openEditForm'])
 
 const remove = () => {
@@ -23,9 +27,9 @@ const openEditForm = () => {
 </script>
 
 <template>
-  <div class="todo-item" :class="{ done: item.done }">
+  <div class="todo-item" > <!--:class="{ done: item.done }"-->
     <label>
-      <input type="checkbox"/>
+      <input type="checkbox" @click="makeDone">
       {{ index + 1 }}. {{ item.content }}
     </label>
 

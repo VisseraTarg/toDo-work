@@ -24,7 +24,7 @@ const close = () => {
 }
 
 const fillFields = {
-    placeholderText: "Напиши сюда любое дело",
+    placeholderText: "Назови задачу",
   }
 
 
@@ -54,7 +54,7 @@ const fillFields = {
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.75);
-  padding: 20%;
+  padding: 15%;
 }
 .form {
   display: flex;
@@ -62,7 +62,7 @@ const fillFields = {
   align-items: center;
   row-gap: 20px;
   background-color: #fff;
-  padding: 40px;
+  padding: 10%;
   border-radius: 16px;
   position: relative;
 }
@@ -72,5 +72,6 @@ input[type="text"] {
   font-size: 20px;
   color: #111;
   border-radius: 8px;
+  width: 100%;
 }
 </style>
