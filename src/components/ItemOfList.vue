@@ -68,16 +68,26 @@ svg {
   border-radius: 50%;
   background-color: #dadada;
   margin-bottom: 1px;
+  cursor: pointer;
+  transition: 0.3s;
+
 }
 label:hover .checkbox{
   background-color: #a7dda7;
+
+  transition: 0.3s;
 }
 label:hover svg{
   stroke: white;
+
+  transition: 0.3s;
 }
+label:active .checkbox{
+  background-color: #00b600;
+}
+
 .done {
   background-color: #00b600;
-
 }
 .done svg{
   stroke: white;

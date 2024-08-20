@@ -12,5 +12,9 @@ img{
   width: 16px;
   height: 16px;
   cursor: pointer;
+  border-radius: 50%;
+}
+img:hover{
+
 }
 </style>
