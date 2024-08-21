@@ -72,27 +72,7 @@ onMounted(() => {
   todos.value = JSON.parse(localStorage.getItem('todos')) || []
 })
 
-const sumProducts = 3;
 
-const forNameSumProducts = {
-  one: "товар",
-  two_three_four: "товара",
-  other: "товаров",
-}
-const nameSumProducts = computed (() => {
-  const lastNumber = Number(String(sumProducts).slice(-1))
-  const lastTwoNumbers = Number(String(sumProducts).slice(-2))
-
-  if (lastTwoNumbers > 10 && lastTwoNumbers < 20) {
-    return forNameSumProducts.other
-  } else if (lastNumber === 1) {
-    return forNameSumProducts.one
-  } else if (lastNumber === 2 || lastNumber === 3 || lastNumber === 4) {
-    return forNameSumProducts.two_three_four
-  } else {
-    return forNameSumProducts.other
-  }
-})
 
 
 </script>
@@ -138,7 +118,7 @@ const nameSumProducts = computed (() => {
           />
         </div>
       </section>
-      {{sumProducts}} {{nameSumProducts}}
+
     </section>
   </main>
 </template>
